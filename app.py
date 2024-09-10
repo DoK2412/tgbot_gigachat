@@ -44,7 +44,6 @@ async def gaining_access(callback: types.CallbackQuery, state: FSMContext) -> No
 async def receiving_language(message, state: FSMContext):
     await state.clear()
     user = await User.get_user(message)
-    print(message.text)
     user.language = message.text
     await state.set_state(Form.text_translated)
     await message.answer('Введите Ваш текст.')

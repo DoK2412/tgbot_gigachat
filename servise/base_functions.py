@@ -29,7 +29,7 @@ class Menu(object):
                                          callback_data="Подписка")
                 ]
             ])
-            await self.message.answer('Добро пожаловать в бот генерации на базе GigaChat.', reply_markup=keyboard)
+            await self.message.answer(f'Добро пожаловать в бот генерации на базе GigaChat.\nАктивных запросов: {user.requests} шт.', reply_markup=keyboard)
         else:
             keyboard = InlineKeyboardMarkup(inline_keyboard=[
                 [
@@ -49,7 +49,8 @@ class Request(object):
     async def translator(self, user):
         result = await translator_text(user, self.message.text)
         await self.message.answer(f'{result}')
-        await self.message.answer(f'Количество запросав уменьшено на 1.\nОсталось: {user.requests}')
+        await writing_request(user)
+        await self.message.answer(f'Использован 1 запрос.\nОстаток: {user.requests}')
 
 
 
